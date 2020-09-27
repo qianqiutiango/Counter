@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="#2196F3"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="计分器" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="204dp"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="Team A"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="204dp"
+        android:layout_height="132dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="40dp" />
+
+    <LinearLayout
+        android:layout_width="202dp"
+        android:layout_height="313dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
+            android:onClick="threePoints"
+            android:text="+3 Points" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
+            android:onClick="twoPoints"
+            android:text="+2 Points" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
+            android:onClick="onePoints"
+            android:text="+1 Points" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
