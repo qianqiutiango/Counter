@@ -1,9 +1,8 @@
 package cn.edu.cn.counter;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,22 +11,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
 
+
     // 美元汇率
-    static double dollarRate = 6.825;
-    // 欧元汇率
-    static double euroRate =  7.944;
-    // 韩元汇率
-    static double wonRate = 0.0058;
+//    static double dollarRate = 6.825;
+//    // 欧元汇率
+//    static double euroRate =  7.944;
+//    // 韩元汇率
+//    static double wonRate = 0.0058;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exchangerate);
+
     }
     public void RMB2USD(View view){
         EditText et = findViewById(R.id.inputRMB);
-
+        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
         String flag = et.getText().toString();
         if(flag.equals("")){
             Toast.makeText(this, "请输入RMB", Toast.LENGTH_SHORT).show();
@@ -35,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
         else {
             EditText inputRMB = findViewById(R.id.inputRMB);
             TextView result = findViewById(R.id.textView3);
-            Double temp = Double.parseDouble(inputRMB.getText().toString()) / dollarRate;
+            Double temp = Double.parseDouble(inputRMB.getText().toString()) / sp.getFloat("dollar_rate",6.825f);
             result.setText(String.format("%.4f", temp) + "美元");
         }
 
     }
     public void RMB2EUR(View view){
         EditText et = findViewById(R.id.inputRMB);
-
+        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
         String flag = et.getText().toString();
         if(flag.equals("")){
             Toast.makeText(this, "请输入RMB", Toast.LENGTH_SHORT).show();
@@ -50,13 +53,14 @@ public class MainActivity extends AppCompatActivity {
         else {
             EditText inputRMB = findViewById(R.id.inputRMB);
             TextView result = findViewById(R.id.textView3);
-            Double temp = Double.parseDouble(inputRMB.getText().toString()) / euroRate;
+            Double temp = Double.parseDouble(inputRMB.getText().toString()) /sp.getFloat("euro_rate",7.944f);
             result.setText(String.format("%.4f", temp) + "欧元");
 
         }
     }
     public void RMB2WON(View view){
         EditText et = findViewById(R.id.inputRMB);
+        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
         String flag = et.getText().toString();
         if(flag.equals("")){
             Toast.makeText(this, "请输入RMB", Toast.LENGTH_SHORT).show();
@@ -70,30 +74,27 @@ public class MainActivity extends AppCompatActivity {
         else {
             EditText inputRMB = findViewById(R.id.inputRMB);
             TextView result = findViewById(R.id.textView3);
-            Double temp = Double.parseDouble(inputRMB.getText().toString()) /wonRate;
+            Double temp = Double.parseDouble(inputRMB.getText().toString()) /sp.getFloat("won_rate",0.0058f);
             result.setText(String.format("%.4f", temp) + "韩元");
         }
     }
     public void config(View btn){
         //open activity
         Intent second = new Intent(this,Config.class);
-        second.putExtra("dollarRate",dollarRate);
-        second.putExtra("euroRate",euroRate);
-        second.putExtra("wonRate",wonRate);
-        startActivityForResult(second,100);
+        startActivity(second);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        double backDollar = data.getDoubleExtra("dollarRate",dollarRate);
-        double backEuro = data.getDoubleExtra("euroRate",euroRate);
-        double backWon = data.getDoubleExtra("wonRate",wonRate);
-        dollarRate = backDollar;
-        euroRate = backEuro;
-        wonRate = backWon;
-
-    }
+    // 使用配置文件读取数据，就不需要回传参数了
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        double backDollar = data.getDoubleExtra("dollarRate",dollarRate);
+//        double backEuro = data.getDoubleExtra("euroRate",euroRate);
+//        double backWon = data.getDoubleExtra("wonRate",wonRate);
+//        dollarRate = backDollar;
+//        euroRate = backEuro;
+//        wonRate = backWon;
+//
+//    }
     //重写onCreateOptionMenu(Menu menu)方法，当菜单第一次被加载时调用
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
 
 
