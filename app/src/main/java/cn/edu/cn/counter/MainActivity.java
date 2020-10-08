@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,14 +15,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG="LogTag";
 
 
-    // 美元汇率
-//    static double dollarRate = 6.825;
-//    // 欧元汇率
-//    static double euroRate =  7.944;
-//    // 韩元汇率
-//    static double wonRate = 0.0058;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +78,20 @@ public class MainActivity extends AppCompatActivity {
         //open activity
         Intent second = new Intent(this,Config.class);
         startActivity(second);
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String result = ((TextView) findViewById(R.id.textView3)).getText().toString();
+        Log.i(TAG, "onSaveInstanceState: ");
+        outState.putString("result", result);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String result = savedInstanceState.getString("result");
+        Log.i(TAG, "onRestoreInstanceState: ");
+        ((TextView)findViewById(R.id.textView3)).setText(result);
     }
     // 使用配置文件读取数据，就不需要回传参数了
 //    @Override

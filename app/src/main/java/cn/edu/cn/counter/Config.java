@@ -42,25 +42,7 @@ public class Config extends AppCompatActivity implements Runnable{
         won.setText(String.format("%.4f",wonRate));
 
     }
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        Log.d(TAG," -- onSaveInstanceState");
-//        outState.putString("name","yoosir");
-//        outState.putInt("age",24);
-//        outState.putBoolean("handsome",true);
-//        super.onSaveInstanceState(outState);
-//    }
-//    @Override
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        Log.d(TAG," -- onRestoreInstanceState");
-//        if(savedInstanceState != null) {
-//            String name = savedInstanceState.getString("name");
-//            int age = savedInstanceState.getInt("age");
-//            boolean isHandsome = savedInstanceState.getBoolean("handsome");
-//            Log.d(TAG, " -- onRestoreInstanceState get: name = " + name + ",age = " + age + ",handsome = " + isHandsome);
-//        }
-//    }
+
     public void save(View btn){
 
         EditText inputDollarRate = findViewById(R.id.dollarRate);
