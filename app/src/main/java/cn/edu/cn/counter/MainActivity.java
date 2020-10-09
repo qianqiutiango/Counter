@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         Intent second = new Intent(this,Config.class);
         startActivity(second);
     }
+    public void showRateList(View btn){
+        //open activity
+        Intent second = new Intent(this,TestList.class);
+        startActivity(second);
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
