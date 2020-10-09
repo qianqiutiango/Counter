@@ -55,7 +55,6 @@ public class TestList extends ListActivity implements Runnable {
     };
     @Override
     public void run() {
-
         List<String> result = new ArrayList<String>();
         //获取网络数据
         try {
@@ -66,7 +65,6 @@ public class TestList extends ListActivity implements Runnable {
             Element table = tables.get(0);
             //获取TD中的数据
             Elements tds = table.getElementsByTag("td" );
-
             for(int i=0;i<tds.size();i+=6){
                 Element td1 = tds.get(i);
                 Element td2 = tds.get(i+5);
