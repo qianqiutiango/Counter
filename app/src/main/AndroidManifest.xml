@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestList"></activity>
+        <activity android:name=".gainData"></activity>
+        <activity android:name=".showActivity" />
+        <activity android:name=".TestAlarm" />
+        <activity android:name=".TestList" />
         <activity android:name=".Config" />
         <activity
             android:name=".MainActivity"

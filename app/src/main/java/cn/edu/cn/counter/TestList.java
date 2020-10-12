@@ -1,9 +1,12 @@
 package cn.edu.cn.counter;
 
+import android.app.Activity;
 import android.app.ListActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TestList extends ListActivity implements Runnable {
     private static final String TAG="LogTag";
@@ -27,8 +31,19 @@ public class TestList extends ListActivity implements Runnable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_my_list);
-        Thread t = new Thread(this);
-        t.start();
+        List<String> list1 = new ArrayList<String>();
+        SharedPreferences sp = getSharedPreferences("rateFromNet", Activity.MODE_PRIVATE);
+        PreferenceManager.getDefaultSharedPreferences(this);
+        Map<String,String> map;
+        map = (Map<String, String>) sp.getAll();
+        for(Map.Entry<String, String> entry : map.entrySet()){
+            String mapKey = entry.getKey();
+            String mapValue = String.valueOf(entry.getValue());
+            list1.add(mapKey+"==>"+mapValue);
+        }
+        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list1);
+        setListAdapter(adapter);
+
         // 使用控件完成列表创建的方式
 //        ListView listView = (ListView) findViewById(R.id.mylist);
 //        String data[] = {"one","two","three","four"};
@@ -72,7 +87,7 @@ public class TestList extends ListActivity implements Runnable {
                 String val = td2.text();
                 Log.i(TAG, str1 + "==>" + val);
                 result.add(str1 + "==>" + val);
-                //获取数据并返回……
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

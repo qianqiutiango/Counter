@@ -1,6 +1,9 @@
 package cn.edu.cn.counter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,12 +19,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG="LogTag";
-
+    private final static long ONE_DAY_MSECOND = 24*60*60*1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exchangerate);
+        Intent intent = new Intent(this, gainData.class);
+//         进行闹铃注册
+        AlarmManager aManager=(AlarmManager)getSystemService(Service.ALARM_SERVICE);
+
+        PendingIntent pi= PendingIntent.getActivity(this, 0, intent, 0);
+
+
+        aManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,AlarmManager.INTERVAL_DAY, pi);
 
     }
     public void RMB2USD(View view){
