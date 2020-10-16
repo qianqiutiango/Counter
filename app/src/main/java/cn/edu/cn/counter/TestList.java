@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
 
@@ -21,6 +22,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,21 +33,29 @@ public class TestList extends ListActivity implements Runnable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_my_list);
-        List<String> list1 = new ArrayList<String>();
+        List listItems = new ArrayList<HashMap<String,String>>();
         SharedPreferences sp = getSharedPreferences("rateFromNet", Activity.MODE_PRIVATE);
         PreferenceManager.getDefaultSharedPreferences(this);
-        Map<String,String> map;
+        PreferenceManager.getDefaultSharedPreferences(this);
+        Map<String,String> map = new HashMap<String,String>();
         map = (Map<String, String>) sp.getAll();
         for(Map.Entry<String, String> entry : map.entrySet()){
+            HashMap<String,String> mapTemp = new HashMap<>();
             String mapKey = entry.getKey();
             String mapValue = String.valueOf(entry.getValue());
-            list1.add(mapKey+"==>"+mapValue);
+            mapTemp.put("ItemTitle",mapKey);
+            mapTemp.put("ItemDetail",mapValue);
+            listItems.add(mapTemp);
         }
-        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list1);
-        setListAdapter(adapter);
+
+        SimpleAdapter listItemAdapter = new SimpleAdapter(this,listItems,
+                R.layout.mylist_item,
+                new String[]{"ItemTitle","ItemDetail"},
+                new int[]{R.id.itemTitle,R.id.itemDetail});
+        setListAdapter(listItemAdapter);
 
         // 使用控件完成列表创建的方式
-//        ListView listView = (ListView) findViewById(R.id.mylist);
+//        ListView listView = (ListView) findViewById(R.id.mylist_item);
 //        String data[] = {"one","two","three","four"};
 //        ListAdapter adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1,data);

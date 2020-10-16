@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG="LogTag";
-    private final static long ONE_DAY_MSECOND = 24*60*60*1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         PendingIntent pi= PendingIntent.getActivity(this, 0, intent, 0);
 
-
-        aManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,AlarmManager.INTERVAL_DAY, pi);
+        aManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),pi);
+//        aManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,AlarmManager.INTERVAL_DAY, pi);
 
     }
     public void RMB2USD(View view){

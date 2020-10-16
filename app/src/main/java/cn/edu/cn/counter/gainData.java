@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +15,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class gainData extends AppCompatActivity implements Runnable{
@@ -31,8 +31,8 @@ public class gainData extends AppCompatActivity implements Runnable{
     @SuppressLint("WrongConstant")
     @Override
     public void run() {
-        Toast.makeText(this,"已更新汇率",Toast.LENGTH_SHORT).show();
-        List<String> list2 =  new ArrayList<String>();
+//        Toast.makeText(this,"已更新汇率",Toast.LENGTH_SHORT).show();
+        List listItems = new ArrayList<HashMap<String,String>>();
         Log.i("MyTag","获取汇率");
         //处理数据实验
         String url = "https://www.usd-cny.com/bankofchina.htm";
@@ -57,8 +57,10 @@ public class gainData extends AppCompatActivity implements Runnable{
             Element td2 = tds.get(i+5);
             String str1 = td1.text();
             String val = td2.text();
-            float v = 100f / Float.parseFloat(val);
-            list2.add(str1 + "==>" + val);
+            HashMap<String,String> map = new HashMap<>();
+            map.put("ItemTitle",str1);
+            map.put("ItemDetail",val);
+            listItems.add(map);
             //数据存储
             ed.putFloat(str1, Float.valueOf(val));
             //获取数据并返回……

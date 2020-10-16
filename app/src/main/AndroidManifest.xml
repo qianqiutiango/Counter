@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.edu.cn.counter">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gainData"></activity>
+        <activity android:name=".Detail"></activity>
+        <activity android:name=".TestAdapter">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyAdapter"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".gainData" />
         <activity android:name=".showActivity" />
         <activity android:name=".TestAlarm" />
         <activity android:name=".TestList" />
