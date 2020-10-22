@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG="LogTag";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         PendingIntent pi= PendingIntent.getActivity(this, 0, intent, 0);
 
-        aManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),pi);
-//        aManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,AlarmManager.INTERVAL_DAY, pi);
+//        aManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+5000,pi);
+        aManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,AlarmManager.INTERVAL_DAY, pi);
 
     }
     public void RMB2USD(View view){
@@ -70,12 +69,6 @@ public class MainActivity extends AppCompatActivity {
         String flag = et.getText().toString();
         if(flag.equals("")){
             Toast.makeText(this, "请输入RMB", Toast.LENGTH_SHORT).show();
-            // 弹窗方法
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setTitle("警告");
-//            builder.setMessage("请输入RMB");
-//            builder.setPositiveButton("确定",null);
-//            builder.show();
         }
         else {
             EditText inputRMB = findViewById(R.id.inputRMB);
@@ -91,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void showRateList(View btn){
         //open activity
-        Intent second = new Intent(this,TestList.class);
+        Intent second = new Intent(this,TestAdapter.class);
         startActivity(second);
     }
     @Override

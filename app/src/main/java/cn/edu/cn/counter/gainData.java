@@ -1,8 +1,6 @@
 package cn.edu.cn.counter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -17,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import cn.edu.cn.counter.db.RateManager;
+import cn.edu.cn.counter.domain.RateItem;
 
 public class gainData extends AppCompatActivity implements Runnable{
 
@@ -49,23 +50,39 @@ public class gainData extends AppCompatActivity implements Runnable{
         //获取TD中的数据
         Elements tds = table6.getElementsByTag("td");
         //将获取数据存入文件中
-        SharedPreferences sp = getSharedPreferences("rateFromNet", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor ed = sp.edit();
+        RateManager rateManager = new RateManager(this);
+        //表中有数据
+        if(rateManager.HaveData("tb_rates")){
+            for(int i=0;i<tds.size();i+=6){
+                Element td1 = tds.get(i);
+                Element td2 = tds.get(i+5);
+                String str1 = td1.text();
+                String val = td2.text();
 
-        for(int i=0;i<tds.size();i+=6){
-            Element td1 = tds.get(i);
-            Element td2 = tds.get(i+5);
-            String str1 = td1.text();
-            String val = td2.text();
-            HashMap<String,String> map = new HashMap<>();
-            map.put("ItemTitle",str1);
-            map.put("ItemDetail",val);
-            listItems.add(map);
-            //数据存储
-            ed.putFloat(str1, Float.valueOf(val));
-            //获取数据并返回……
+                //更新数据
+                rateManager.updateByName(str1,val);
+                Log.i("币种：",str1+" 更新成功");
+            }
         }
-        ed.commit();
+        else{
+            for(int i=0;i<tds.size();i+=6){
+                Element td1 = tds.get(i);
+                Element td2 = tds.get(i+5);
+                //币种
+                String str1 = td1.text();
+                //汇率
+                String val = td2.text();
+                RateItem rateItem = new RateItem();
+                rateItem.setCurName(str1);
+                rateItem.setCurRate(val);
+                //插入数据
+                rateManager.add(rateItem);
+                Log.i("币种：",str1+" 插入成功");
+            }
+        }
+
+
+
         Log.i("TAG","currentTime:"+System.currentTimeMillis());
 
     }

@@ -14,19 +14,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Detail"></activity>
         <activity android:name=".TestAdapter">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".MyAdapter"
             tools:ignore="Instantiatable" />
         <activity android:name=".gainData" />
-        <activity android:name=".showActivity" />
-        <activity android:name=".TestAlarm" />
-        <activity android:name=".TestList" />
         <activity android:name=".Config" />
         <activity
             android:name=".MainActivity"

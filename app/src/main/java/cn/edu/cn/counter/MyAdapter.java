@@ -12,17 +12,19 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import cn.edu.cn.counter.domain.Rate;
+import cn.edu.cn.counter.domain.RateItem;
 
 public class MyAdapter extends ArrayAdapter  {
 
     private static final String TAG = "MyAdapter";
 
 
-    public MyAdapter(Context context, int resource, ArrayList<Rate> list) {
+    public MyAdapter(Context context, int resource, ArrayList<RateItem> list) {
         super(context,resource, list);
 
     }
+
+
 
     @NonNull
     @Override
@@ -32,11 +34,11 @@ public class MyAdapter extends ArrayAdapter  {
         if(itemView == null){
             itemView = LayoutInflater.from(getContext()).inflate(R.layout.mylist_item,parent,false);
         }
-        Rate rate = (Rate)getItem(position);
+        RateItem rate = (RateItem) getItem(position);
         TextView title = itemView.findViewById(R.id.itemTitle);
         TextView detail = itemView.findViewById(R.id.itemDetail);
-        title.setText(rate.getNation());
-        detail.setText(rate.getRate());
+        title.setText(rate.getCurName());
+        detail.setText(rate.getCurRate());
         return itemView;
     }
 
